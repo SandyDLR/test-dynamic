@@ -11,36 +11,25 @@
             reload_on_language_picker: true
         };
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
-    <script>
-        // Create an alias for Transifex live translateText
-        window._t = Transifex.live.translateText;
-    </script>
 </head>
 <body>
-    <div id="foo"></div>
+    <div id="content">
+        <h1>Welcome to CancerIQ</h1>
+        <p id="dynamicText"></p>
+    </div>
 
-    <script type="text/template" id="template">
-        <div>
-            <h1><%= _t("This is a title") %></h1>
-            <p><%= _t("This is a paragraph") %></p>
-            <p><%= _t("Hello {name}", params) %></p>
-        </div>
-    </script>
-
-    <input type="text" id="nameInput" placeholder="Enter name">
+    <input type="text" id="emailInput" placeholder="Enter email address">
     <button onclick="loadDynamicContent()">Load Dynamic Content</button>
 
     <script>
         function loadDynamicContent() {
-            const name = document.getElementById('nameInput').value || "John";
-            const params = { name: name };
-            const template = _.template(document.getElementById('template').innerHTML);
-            document.getElementById('foo').innerHTML = template({ params: params });
+            const email = document.getElementById('emailInput').value || "welcome@test.email.com";
+            const message = `We have sent a code to your email <span class="notranslate">${email}</span>, please check.`;
+            document.getElementById('dynamicText').innerHTML = message;
 
             // Mark the newly injected content for translation
             Transifex.live.onReady(function() {
-                Transifex.live.translateNode(document.getElementById('foo'));
+                Transifex.live.translateNode(document.getElementById('content'));
             });
         }
     </script>
