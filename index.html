@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transifex Live Dynamic Content Demo</title>
+    <script src="https://cdn.transifex.com/live.js"></script>
+    <script>
+        window.liveSettings = {
+            api_key: "your_live_api_key",
+            reload_on_language_picker: true
+        };
+    </script>
+</head>
+<body>
+    <div id="content">
+        <h1>Welcome to CancerIQ</h1>
+        <p id="dynamicText"></p>
+    </div>
+
+    <input type="text" id="emailInput" placeholder="Enter email address">
+    <button onclick="loadDynamicContent()">Load Dynamic Content</button>
+
+    <script>
+        function loadDynamicContent() {
+            const email = document.getElementById('emailInput').value || "welcome@test.email.com";
+            const message = `We have sent a code to your email ${email}, please check.`;
+            document.getElementById('dynamicText').innerText = message;
+
+            // Mark the newly injected content for translation
+            Transifex.live.onReady(function() {
+                Transifex.live.translateNode(document.getElementById('content'));
+            });
+        }
+    </script>
+</body>
+</html>
