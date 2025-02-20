@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Counter Page</title>
+
+    <!-- Transifex Live Snippet -->
+    <script src="https://cdn.transifex.com/live.js"></script>
+    <script>
+        window.liveSettings = {
+            api_key: "290ef8bb21e24a3095729db5236bb89a",
+            reload_on_language_picker: true
+        };
+    </script>
+</head>
+<body>
+
+    <h1>Step Counter</h1>
+
+    <!-- EXACT requested structure with Transifex-compatible attributes -->
+    <div id="progress"
+         aria-label={`You have completed ${stepCount} of 3 steps`}
+         data-tx-text="You have completed {step} of 3 steps">
+        ${stepCount} / 3
+    </div>
+
+    <button onclick="updateProgress()">Next Step</button>
+
+    <script>
+        let stepCount = 1;
+
+        function updateProgress() {
+            if (stepCount < 3) {
+                stepCount++;
+                const progressDiv = document.getElementById('progress');
+
+                // Update content while keeping requested structure
+                progressDiv.innerHTML = `\${stepCount} / 3`;
+                progressDiv.setAttribute("aria-label", `You have completed ${stepCount} of 3 steps`);
+
+                // Mark newly updated content for translation
+                Transifex.live.onReady(function() {
+                    Transifex.live.translateNode(progressDiv);
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
