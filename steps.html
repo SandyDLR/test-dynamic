@@ -18,10 +18,9 @@
 
     <h1>Step Counter</h1>
 
-    <!-- EXACT requested structure with Transifex-compatible attributes -->
+    <!-- EXACT requested structure -->
     <div id="progress"
-         aria-label={`You have completed ${stepCount} of 3 steps`}
-         data-tx-text="You have completed {step} of 3 steps">
+         aria-label={`You have completed ${stepCount} of 3 steps`}>
         ${stepCount} / 3
     </div>
 
@@ -45,6 +44,13 @@
                 });
             }
         }
+
+        // Ensure step count always starts at 1 on load
+        document.addEventListener("DOMContentLoaded", function() {
+            const progressDiv = document.getElementById('progress');
+            progressDiv.innerHTML = `\${stepCount} / 3`;
+            progressDiv.setAttribute("aria-label", `You have completed ${stepCount} of 3 steps`);
+        });
     </script>
 
 </body>
