@@ -24,7 +24,7 @@
     <script>
         function loadDynamicContent() {
             const email = document.getElementById('emailInput').value || "welcome@test.email.com";
-            const message = `We have sent a code to your email <customignore class="exclude-from-translation">${email}</customignore>, please check.`;
+            const message = `We have sent a code to your email <var>${email}</var>, please check.`;
             document.getElementById('dynamicText').innerHTML = message;
 
             // Mark the newly injected content for translation
