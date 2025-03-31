@@ -11,52 +11,22 @@
         window.liveSettings = {
             api_key: "290ef8bb21e24a3095729db5236bb89a",
             reload_on_language_picker: true
+            variables_parser: function (text, fn) {
+
+return text.replace(/\b\d{4}-\d{2}-\d{2} \d{2}:\d{2} [AP]M\b/g, function (match) {
+
+return fn(match); // Convert detected timestamps into {{0}}
+
+});
         };
     </script>
 </head>
 <body>
 
-    <h1>Step Counter</h1>
+    <h1>Your appointment is scheduled for 2025-02-23 at 10:00 AM.</h1>
 
-    <!-- Step Counter (aria-label is set dynamically on load) -->
-    <div id="progress" tx-attrs="aria-label">
-        <span id="stepCount"></span> / <span id="totalSteps"></span>
-    </div>
 
-    <button onclick="updateProgress()">Next Step</button>
 
-    <script>
-        let stepCount = 1;
-        const totalSteps = 3;
-        const progressDiv = document.getElementById('progress');
-        const stepCountSpan = document.getElementById('stepCount');
-        const totalStepsSpan = document.getElementById('totalSteps');
-
-        function updateProgress() {
-            if (stepCount < totalSteps) {
-                stepCount++;
-
-                // Update step count numbers
-                stepCountSpan.textContent = stepCount;
-                totalStepsSpan.textContent = totalSteps;
-
-                // Update aria-label dynamically
-                progressDiv.setAttribute("aria-label", `You have completed ${stepCount} of ${totalSteps} steps`);
-
-                // Ensure Transifex Live detects and translates the updated content
-                Transifex.live.onReady(function() {
-                    Transifex.live.translateNode(progressDiv);
-                });
-            }
-        }
-
-        // Ensure aria-label is always set dynamically on page load
-        document.addEventListener("DOMContentLoaded", function() {
-            stepCountSpan.textContent = stepCount;
-            totalStepsSpan.textContent = totalSteps;
-            progressDiv.setAttribute("aria-label", `You have completed ${stepCount} of ${totalSteps} steps`);
-        });
-    </script>
 
 </body>
 </html>
