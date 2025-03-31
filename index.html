@@ -24,7 +24,7 @@
     <script>
         function loadDynamicContent() {
             const email = document.getElementById('emailInput').value || "welcome@test.email.com";
-            const message = `We have sent a code to your email <var>${email}</var>, please check.`;
+            const message = `Your order number is <var>${email}</var>. Please keep it safe.`;
             document.getElementById('dynamicText').innerHTML = message;
 
             // Mark the newly injected content for translation
