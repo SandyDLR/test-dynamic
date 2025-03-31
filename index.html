@@ -6,11 +6,16 @@
     <title>Transifex Live Dynamic Content Demo</title>
     <script src="https://cdn.transifex.com/live.js"></script>
     <script>
-        window.liveSettings = {
-            api_key: "290ef8bb21e24a3095729db5236bb89a",
-            reload_on_language_picker: true
-        };
-    </script>
+window.liveSettings = {
+    api_key: "290ef8bb21e24a3095729db5236bb89a",,
+    variables_parser: function (text, fn) {
+        return text.replace(/\b\d{4}-\d{2}-\d{2} \d{2}:\d{2} [AP]M\b/g, function (match) {
+            return fn(match); // Convert detected timestamps into {{0}}
+        });
+    }
+};
+</script>
+
 </head>
 <body>
     <div id="content">
@@ -33,5 +38,10 @@
             });
         }
     </script>
+
+    <p id="confirmation-message">
+    Your appointment is scheduled for 2025-02-23 at 10:00 AM.
+</p
+
 </body>
 </html>
