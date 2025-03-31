@@ -6,11 +6,11 @@
     <title>Transifex Live Dynamic Content Demo</title>
     <script src="https://cdn.transifex.com/live.js"></script>
     <script>
-window.liveSettings = {
-    api_key: "290ef8bb21e24a3095729db5236bb89a"
-};
-</script>
-
+        window.liveSettings = {
+            api_key: "290ef8bb21e24a3095729db5236bb89a",
+            reload_on_language_picker: true
+        };
+    </script>
 </head>
 <body>
     <div id="content">
@@ -24,7 +24,7 @@ window.liveSettings = {
     <script>
         function loadDynamicContent() {
             const email = document.getElementById('emailInput').value || "welcome@test.email.com";
-            const message = `Your order number is <var>${email}</var>. Please keep it safe.`;
+            const message = `We have sent a code to your email <var>${email}</var>, please check.`;
             document.getElementById('dynamicText').innerHTML = message;
 
             // Mark the newly injected content for translation
@@ -33,10 +33,5 @@ window.liveSettings = {
             });
         }
     </script>
-
-    <p id="confirmation-message">
-    Your appointment is scheduled for 2025-02-23 at 10:00 AM.
-</p
-
 </body>
 </html>
