@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transifex Live Dynamic Content Demo</title>
-    <script src="https://cdn.transifex.com/live.js"></script>
+  <meta charset="UTF-8" />
+  <title>Dynamic Text by Hour</title>
     <script>
-        window.liveSettings = {
-            api_key: "290ef8bb21e24a3095729db5236bb89a",
-            reload_on_language_picker: true
-        };
-    </script>
+    window.liveSettings = {
+        api_key: "290ef8bb21e24a3095729db5236bb89a",
+        reload_on_language_picker: true,
+        autocollect: true
+        
+    };
+</script>
 </head>
 <body>
-    <div id="content">
-        <h1>Welcome to Site</h1>
-        <p id="dynamicText"></p>
-    </div>
+  <h1 id="hourly-message">Loading message...</h1>
 
-    <input type="text" id="emailInput" placeholder="Enter email address">
-    <button onclick="loadDynamicContent()">Load Dynamic Content</button>
+  <script>
+    // Define messages for each hour (0 to 23)
+    const messages = {
+      0: "It's midnight magic hour ✨",
+      1: "Late night thoughts...",
+      2: "Still awake? 🦉",
+      3: "Time for dreams",
+      4: "Early riser, huh?",
+      5: "Sunrise soon!",
+      6: "Good morning!",
+      7: "Have a fresh start!",
+      8: "Time to focus",
+      9: "Stay productive!",
+      10: "Keep going 💪",
+      11: "Almost lunch!",
+      12: "Enjoy your lunch 🍴",
+      13: "Time to get back to it",
+      14: "Power through the afternoon!",
+      15: "Stretch a bit!",
+      16: "Almost there!",
+      17: "Wrap-up time 🕔",
+      18: "Evening breeze 🌆",
+      19: "Time to wind down",
+      20: "Relax and recharge",
+      21: "Netflix time?",
+      22: "Getting sleepy...",
+      23: "Almost midnight!",
+    };
 
-    <script>
-        function loadDynamicContent() {
-            const email = document.getElementById('emailInput').value || "welcome@test.email.com";
-            const message = `We have sent a code to your email <var>${email}</var>, please check.`;
-            document.getElementById('dynamicText').innerHTML = message;
+    // Function to update the message based on current hour
+    function updateMessage() {
+      const currentHour = new Date().getHours();
+      const message = messages[currentHour] || "Hello!";
+      document.getElementById("hourly-message").textContent = message;
+      return currentHour;
+    }
 
-            // Mark the newly injected content for translation
-            Transifex.live.onReady(function() {
-                Transifex.live.translateNode(document.getElementById('content'));
-            });
-        }
-    </script>
+    // Initialize the message and store the current hour
+    let lastHour = updateMessage();
+
+    // Check every minute if the hour has changed and update if needed
+    setInterval(() => {
+      const newHour = new Date().getHours();
+      if (newHour !== lastHour) {
+        updateMessage();
+        lastHour = newHour;
+      }
+    }, 60 * 1000); // every 60 seconds
+  </script>
 </body>
 </html>
